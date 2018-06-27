@@ -11,9 +11,13 @@ export default class Note extends React.Component {
 
 	render(props) {
 		return (
-			<div className="Note">
+			<React.Fragment>
+				
+				<li>
 					{ this.noteContent }
-			</div>
+				</li>
+								
+			</React.Fragment>
 		);
 	}
 

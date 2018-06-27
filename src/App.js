@@ -14,17 +14,30 @@ class App extends Component {
     }
   }
 
+  addNoteApp = (note) => {
+    const previousNotes = this.state.notes;
+    previousNotes.push({ id: previousNotes.length + 1, noteContent: note });
+    this.setState ({
+      notes: previousNotes,
+    })
+   
+  }
+
   render() {
     return (
       <div className="App">
         <h1>ToDo List App</h1>
-          {
-            this.state.notes.map(note =>
-              <Note noteContent={note.noteContent} noteId={note.id} key={note.id} />
-            )
-          }
-          
-        <NoteForm/>
+
+          <NoteForm addNote={this.addNoteApp} />
+
+          <ul>
+            {
+              this.state.notes.map(note =>
+                <Note noteContent={note.noteContent} noteId={note.id} key={note.id} />
+              )
+            }
+          </ul>          
+       
       </div>
     );
   }
