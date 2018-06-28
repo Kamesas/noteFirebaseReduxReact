@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import Note from './Note/Note'
 import NoteForm from './NoteForm/NoteForm'
 
@@ -16,14 +17,16 @@ class App extends Component {
 
   addNoteApp = (note) => {
     const previousNotes = this.state.notes;
-    previousNotes.push({ id: previousNotes.length + 1, noteContent: note });
+    previousNotes.push({ id: Date.now(), noteContent: note });
     this.setState ({
       notes: previousNotes,
     })
+
    
   }
 
   render() {
+    console.log(this.props.testStore);
     return (
       <div className="App">
         <h1>ToDo List App</h1>
@@ -36,11 +39,27 @@ class App extends Component {
                 <Note noteContent={note.noteContent} noteId={note.id} key={note.id} />
               )
             }
-          </ul>        
+          </ul>  
+
+          <hr/>
+
+          <h2>TaskER</h2>          
+          <input type="text"  />
+          <button>AddTask</button>
+          <ul>
+            {this.props.testStore.map(note =>
+              <li key={note.id}>{note.taskContent}</li>
+            )}
+          </ul>              
        
       </div>
     );
   }
 }
 
-export default App;
+export default connect(
+  state => ({
+    testStore: state
+  }),
+  dispatch => ({})
+)(App);

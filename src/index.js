@@ -1,40 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 import App from './App';
 
-let testNote = [
-        {id: 1, noteContent: 'testNote 1 !'},
-        {id: 2, noteContent: 'testNote 2 !'}
+let testTasks = [
+        {id: 1, taskContent: 'testTask 1 !'},
+        {id: 2, taskContent: 'testTask 2 !'}
       ]
 
-const store = createStore(rootReducer);
-
-function rootReducer (state = testNote, action) {	
+function rootReducer (state = testTasks, action) {	
 	if (action.type === 'ADD_NOTE') {
 
 		console.log('action type ADD_NOTE --- ', action)
-		return [...state, action.payload]
-
-	}else if (action.type === 'ADD_CONTACT_Obj') {
-
-		console.log('action type ADD_CONTACT_Obj --- ', action)
 		return [...state, action.payload]
 
 	}
 	return state
 }
 
-store.subscribe(() => {
-	console.log('Изминение стора => ', store.getState());
-})
+const store = createStore(rootReducer);
 
-store.dispatch({type: 'ADD_NOTE', payload: 'Note #1 !!!'})
-store.dispatch({type: 'ADD_NOTE', payload: 'Note #2 !!!'})
-
-store.dispatch({type: 'ADD_CONTACT_Obj', payload: {firstName: 'Alex', secondName: 'Semak'} })
-
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<Provider store={store} >
+	              	<App />
+	              </Provider>,
+	              document.getElementById('root')
+	              );
 
