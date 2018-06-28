@@ -36,7 +36,7 @@ class App extends Component {
                 <Note noteContent={note.noteContent} noteId={note.id} key={note.id} />
               )
             }
-          </ul>          
+          </ul>        
        
       </div>
     );
